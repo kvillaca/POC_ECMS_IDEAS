@@ -16,6 +16,16 @@ import org.slf4j.LoggerFactory;
 
 import com.pq.ideas.pojos.DummyPojoForTests;
 
+/**
+ * Dummy services, one using GET and other using POST
+ * 
+ * @author kvillaca
+ *
+ */
+
+/*
+ * We can add /v1 as prefix for dummy (e.g.: /v1/dummy).
+ */
 @Path("/dummy")
 public class DummyService {
 
@@ -38,7 +48,7 @@ public class DummyService {
 				response = Response.noContent().build();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			response = Response.status(Response.Status.BAD_REQUEST).build();
 		}
 		return response;
 	}
@@ -60,12 +70,20 @@ public class DummyService {
 				response = Response.noContent().build();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			response = Response.status(Response.Status.BAD_REQUEST).build();
 		}
 		return response;
 	}
 	
 	
+	/**
+	 * Private method to extract the from the JSON payload the desired JSON object
+	 * that in this case is the DummyPojoForTests object.
+	 * 
+	 * @param dummyPojoStr
+	 * @return
+	 * @throws Exception
+	 */
 	private DummyPojoForTests parseToPojo(String dummyPojoStr) throws Exception {
 		final String POJO_KEY = "DummyPojoForTests";
 		final ObjectMapper mapper = new ObjectMapper();
