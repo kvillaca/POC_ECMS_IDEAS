@@ -53,6 +53,12 @@ public class LoginService {
 
 					if (responseAsList != null && responseAsList.size() > 0) {
 						final JSONObject json = getHeaderToken(responseAsList);
+						
+						/*
+						 * On the line bellow I have plans, to have a helper class to check the responses
+						 * and add the type of response as needed.
+						 * If ok, producing like the line bellow, a warning/error to return a response with appropriate code plus message
+						 */
 						resp = Response.ok().header(TokenDetailsKeys.HEADER.toString(), json).build();
 					} else
 						resp = Response.status(Response.Status.UNAUTHORIZED).build();

@@ -247,7 +247,7 @@ public class TokenAuthenticator {
 				newTokenToReturn = oneObject.toString();// mapper.writeValueAsString(oneObject);
 			}
 		} catch (Exception e) {
-			// TODO re throw an POC exception as may be because the token or user is invalid.
+			// TODO re throw an POC exception as the token my be empty or the user is invalid.
 			e.printStackTrace();
 		}
 		return newTokenToReturn;
