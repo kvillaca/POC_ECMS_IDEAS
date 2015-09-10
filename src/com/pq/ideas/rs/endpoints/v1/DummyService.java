@@ -26,7 +26,7 @@ import com.pq.ideas.pojos.DummyPojoForTests;
 /*
  * We can add /v1 as prefix for dummy (e.g.: /v1/dummy).
  */
-@Path("/dummy")
+@Path("/v1/dummy")
 public class DummyService {
 
 	final Logger LOG = LoggerFactory.getLogger(this.getClass());
@@ -37,7 +37,7 @@ public class DummyService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response serviceOnePost(String value) {
-		Response response = null;
+		Response response;
 		try {
 			final DummyPojoForTests dummyTest = parseToPojo(value);
 			if (dummyTest != null) {
@@ -59,7 +59,7 @@ public class DummyService {
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response serviceOneGet(@QueryParam("dummyPojo") String dummyPojo) {
-		Response response = null;
+		Response response;
 		try {
 			final DummyPojoForTests dummyTest = parseToPojo(dummyPojo);
 			if (dummyTest != null) {

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
@@ -32,9 +33,6 @@ public class TokenAuthenticator {
 
 	/**
 	 * Constructor for the Token Authenticator, receiving the local user and the URI been called
-	 * 
-	 * @param uri
-	 * @param localUser
 	 */
 	public TokenAuthenticator(final String uri, final String localUser) {
 		super();
@@ -46,14 +44,10 @@ public class TokenAuthenticator {
 	
 	/**
 	 * Create a new token if login or validate and replace the token received if necessary
-	 * 
-	 * @param token
-	 * @param userInfo
-	 * @return
-	 * @throws POCException
+	 *
 	 */
 	public TokenPojo getToken(final String token, final UserInfo userInfo) throws POCException {
-		TokenPojo tokenToReturn = null;
+		TokenPojo tokenToReturn;
 
 		if (token == null || token.trim().length() == 0 && userInfo != null) {
 			tokenToReturn = createNewToken(userInfo);
@@ -82,10 +76,7 @@ public class TokenAuthenticator {
 	/**
 	 * Create a new token if the session is new, mean the user has logged with success It's not enough the user be validated agains LDAP, it
 	 * also need be validate against POC UserRoles DB.
-	 * 
-	 * @param userInfo
-	 * @return
-	 * @throws POCException
+	 *
 	 */
 	private TokenPojo createNewToken(final UserInfo userInfo) throws POCException {
 		TokenPojo tokenToBe = null;
@@ -109,10 +100,7 @@ public class TokenAuthenticator {
 
 	/**
 	 * Check the token and update it to return to the user, 'keeping the session alive'
-	 * 
-	 * @param tokenStr
-	 * @param localUser
-	 * @return
+	 *
 	 */
 	public TokenPojo checkExistingToken(final String tokenStr) {
 		TokenPojo token = parseToken(tokenStr);
@@ -130,9 +118,7 @@ public class TokenAuthenticator {
 
 	/**
 	 * Replace the old token for a new one with new previous and actual times
-	 * 
-	 * @param tokenStr
-	 * @return
+	 *
 	 */
 	public TokenPojo replaceToken(final String tokenStr) {
 		TokenPojo token = parseToken(tokenStr);
@@ -151,9 +137,7 @@ public class TokenAuthenticator {
 
 	/**
 	 * Parse the token from JSON to TokenPojo object
-	 * 
-	 * @param tokenStr
-	 * @return
+	 *
 	 */
 	private TokenPojo parseToken(final String tokenStr) {
 		final ObjectMapper mapper = new ObjectMapper();
@@ -171,9 +155,7 @@ public class TokenAuthenticator {
 
 	/**
 	 * ValidateToken from filter
-	 * 
-	 * @param tokenStr
-	 * @return
+	 *
 	 */
 	public String validateToken(String tokenStr) {
 		String tokenStrToReturn = null;
@@ -207,9 +189,7 @@ public class TokenAuthenticator {
 
 	/**
 	 * Check if against the cache to know if the token is valid or not
-	 * 
-	 * @param tokenAsPojo
-	 * @return
+	 *
 	 */
 	private boolean addTokenToMapTokenList(final TokenPojo tokenAsPojo, final String tokenStr) {
 		boolean isValidToken = true;
@@ -228,9 +208,7 @@ public class TokenAuthenticator {
 
 	/**
 	 * Get a new encrypted token for the filter response.
-	 * 
-	 * @param token
-	 * @return
+	 *
 	 */
 	public String getNewToken(String token) {
 		String newTokenToReturn = null;
@@ -262,11 +240,7 @@ public class TokenAuthenticator {
 
 	/**
 	 * Get User roles from the DB from the LDAP UserInfo object.
-	 * 
-	 * @param userLogged
-	 * @return
-	 * @throws POCException
-	 * @throws SQLException
+	 *
 	 */
 	private List<String> getUserRoles(final UserInfo userLogged) throws POCException {
 		final List<String> rolesToReturn = CreateDummyGroupsRoles.getRolesForTheUser(userLogged.getActiveDirectoryMetadata().getSamAccountName());

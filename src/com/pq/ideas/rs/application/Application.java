@@ -1,11 +1,13 @@
 package com.pq.ideas.rs.application;
 
-import javax.ws.rs.ApplicationPath;
-
 import org.glassfish.jersey.message.GZipEncoder;
 import org.glassfish.jersey.message.filtering.EntityFilteringFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.EncodingFilter;
+
+import javax.ws.rs.ApplicationPath;
+
+
 
 /**
  * Application class that define the packages, services and filters, that also can be made via web.xml file
@@ -13,7 +15,7 @@ import org.glassfish.jersey.server.filter.EncodingFilter;
  * @author kvillaca
  *
  */
-@ApplicationPath("/rest")
+@ApplicationPath("ecms/rest/")
 public class Application extends ResourceConfig {
 	
 	@SuppressWarnings("unchecked")
